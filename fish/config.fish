@@ -15,7 +15,7 @@ alias reload='source ~/dotfiles/fish/config.fish'
 alias kc='keychain'
 alias helix='hx'
 alias tree='eza --tree'
-alias rm='rm -i'
+alias rm='rm'
 alias cat='bat'
 alias export='set -x VAR'
 alias cd='z'
@@ -38,3 +38,5 @@ else if status --is-interactive
         fastfetch -l none
     end
 end
+
+cd ~/work/
