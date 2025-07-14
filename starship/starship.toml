@@ -24,7 +24,7 @@ format = "[⌇ $branch]($style)"
 style = "bold grey"
 
 [git_status]
-format = '$ahead$behind$diverged$conflicted$untracked$stashed$modified$staged$renamed$deleted'
+format = '$ahead$behind$diverged$conflicted$untracked$modified$staged$renamed$deleted'
 style = ""
 
 ahead = '[ +${count}](green)'
