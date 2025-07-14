@@ -18,6 +18,9 @@ set -p PATH "$HOME/.local/share/gem/ruby/3.4.0/bin"
 set fish_greeting
 set VIRTUAL_ENV_DISABLE_PROMPT 1
 
+# === STARSHIP ===
+source (/Users/gourav/.nix-profile/bin/starship init fish --print-full-init | psub)
+
 # === ZOXIDE ===
 zoxide init fish | source
 
@@ -37,7 +40,7 @@ end
 
 # === ALIASES ===
 alias cls='clear'
-alias so='source ~/work/dotfiles/fish/config.fish'
+alias so='source ~/dotfiles/fish/config.fish'
 alias fish_config="nvim ~/.config/fish/config.fish"
 
 # File utilities
@@ -58,7 +61,7 @@ alias g="git"
 alias gs="git status"
 alias gc="git commit -m"
 alias gp="git push"
-alias dotfiles='/usr/bin/git --git-dir=$HOME/work/dotfiles '
+alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles '
 
 # Navigation
 alias cd='z'
