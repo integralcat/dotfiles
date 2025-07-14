@@ -45,12 +45,12 @@ alias so='source ~/dotfiles/fish/config.fish'
 alias fish_config="nvim ~/.config/fish/config.fish"
 
 # File utilities
-alias ls='exa -al --color=always --group-directories-first --icons'
+alias ls='exa -l --color=always --group-directories-first --icons=always --no-time --no-user '
 alias la='exa -a --color=always --group-directories-first --icons'
 alias ll='exa -l --color=always --group-directories-first --icons'
 alias lt='exa -aT --color=always --group-directories-first --icons'
 alias l.="exa -a | egrep '^\.'"
-alias cat='bat --style header --style snip --style changes --style header'
+alias cat='bat'
 alias tree='eza --tree'
 
 # Text & Terminal

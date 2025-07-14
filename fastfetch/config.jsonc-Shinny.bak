@@ -21,22 +21,40 @@
     {
       "type": "host",
       "key": " PC",
-      "keyColor": "blue",
+      "keyColor": "green",
     },
     {
       "type": "cpu",
-      "key": "│ ├󰍛",
-      "keyColor": "yellow",
+      "key": "│ ├",
+      "keyColor": "green",
     },
     {
       "type": "memory",
       "key": "│ ├󰍛",
-      "keyColor": "magenta",
+      "keyColor": "green",
     },
     {
       "type": "disk",
       "key": "└ └󰍛",
       "keyColor": "green",
+    },
+    {
+      "type": "custom",
+    },
+    {
+      "type": "os",
+      "key": " OS",
+      "keyColor": "yellow",
+    },
+    {
+      "type": "shell",
+      "key": "│ ├",
+      "keyColor": "yellow",
+    },
+    {
+      "type": "terminal",
+      "key": "└ └",
+      "keyColor": "yellow",
     },
   ],
 }

@@ -1,0 +1,27 @@
+# === Colors ===
+foreground = d6d6d6
+background = 111111
+selection-background = 242630
+selection-foreground = f8f8f2
+
+# === UI ===
+background-opacity = 0.9
+
+# === Font ===
+font-family = "JetBrainsMono Nerd Font"
+font-size = 16
+
+# === Window Position ===
+window-position-x = 0
+window-position-y = 0
+
+# === Window Size ===
+window-width = 105
+window-height = 30
+
+# === MISC ===
+macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = true
+focus-follows-mouse = true
+shell-integration = fish
+window-inherit-working-directory = false
