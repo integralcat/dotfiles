@@ -20,6 +20,7 @@ set VIRTUAL_ENV_DISABLE_PROMPT 1
 
 # === STARSHIP ===
 source (/Users/gourav/.nix-profile/bin/starship init fish --print-full-init | psub)
+export STARSHIP_CONFIG="$HOME/dotfiles/starship/starship.toml"
 
 # === ZOXIDE ===
 zoxide init fish | source

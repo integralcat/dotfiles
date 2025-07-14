@@ -1,0 +1,54 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+# Left side: just the command character
+format = """$jobs$character"""
+
+# Right side: compact info
+right_format = """$directory$git_branch$git_status"""
+
+[character]
+success_symbol = "[➜](bold green) "
+error_symbol = "[➜](bold red) "
+vimcmd_symbol = "[❮](bold blue) "
+
+[directory]
+style = "bold cyan"
+format = "[$path]($style) "
+truncation_length = 2
+
+[git_branch]
+symbol = "⌇" # " "
+format = "[⌇ $branch]($style)"
+style = "bold grey"
+
+[git_status]
+format = '$ahead$behind$diverged$conflicted$untracked$stashed$modified$staged$renamed$deleted'
+style = ""
+
+ahead = '[ +${count}](green)'
+behind = '[ -${count}](red)'
+diverged = '[ ±↑${ahead_count} ↓${behind_count}](magenta)'
+conflicted = '[ x${count}](bright-magenta)'
+untracked = '[ ?${count}](yellow)'
+stashed = '[ $${count}](white dimmed)'
+modified = '[ !${count}](bright-yellow)'
+staged = '[ +${count}](cyan)'
+renamed = '[ »${count}](blue)'
+deleted = '[ ✘${count}](bright-red)'
+
+
+# example
+[python]
+symbol = " "
+format = "[ $version]($style) "
+style = "yellow"
+
+[jobs]
+symbol = "✦"
+format = "[✦]($style) "
+style = "blue italic"
+
+[time]
+disabled = true
