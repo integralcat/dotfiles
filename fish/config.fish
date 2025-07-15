@@ -184,7 +184,7 @@ function ydownload
         --audio-quality 0 \
         --embed-thumbnail \
         --add-metadata \
-        --output "$HOME/Music/%(title)s.%(ext)s" \
+        --output "$HOME/Downloads/%(title)s.%(ext)s" \
         $url
 end
 
