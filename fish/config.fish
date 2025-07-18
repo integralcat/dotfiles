@@ -1,6 +1,7 @@
 # === ENV VARS ===
 export HOMEBREW_NO_ENV_HINTS=1
 export RUSTFLAGS="-C linker=clang -C link-arg=-fuse-ld=lld"
+export DOTLINK_ROOT="$HOME/dotfiles/"
 
 set -x MANPAGER bat
 set -gx PATH $HOME/.cabal/bin $PATH $HOME/.ghcup/bin
@@ -19,8 +20,8 @@ set fish_greeting
 set VIRTUAL_ENV_DISABLE_PROMPT 1
 
 # === STARSHIP ===
-source (/Users/gourav/.nix-profile/bin/starship init fish --print-full-init | psub)
-export STARSHIP_CONFIG="$HOME/dotfiles/starship/starship.toml"
+source ($HOME/.nix-profile/bin/starship init fish --print-full-init | psub)
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
 # === ZOXIDE ===
 zoxide init fish | source
@@ -95,6 +96,10 @@ alias g++="g++ -Wall -Wextra"
 alias grep='rg'
 alias find='fd'
 
+# Torrenting and Downloading with Aria2
+alias at='aria2c --dir=downloads/ --seed-time=0'
+alias am='aria2c --bt-tracker=udp://tracker.openbittorrent.com:80,udp://tracker.opentrackr.org:1337/announce '
+
 # Misc
 alias tarnow='tar -acf '
 alias untar='tar -xvf '
@@ -157,7 +162,7 @@ function yplay
         echo "No search query given."
         return
     end
-    set -l url (yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d'|' -f2 | string trim)
+    set -l url (yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d' | ' -f2 | string trim)
     if test -z "$url"
         echo "No selection made."
         return
@@ -171,7 +176,8 @@ function ydownload
         echo "No search query given."
         return
     end
-    set -l url (yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d'|' -f2 | string trim)
+    set -l url (yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d' | \
+' -f2 | string trim)
     if test -z "$url"
         echo "No selection made."
         return
