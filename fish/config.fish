@@ -85,6 +85,9 @@ alias xi="brew install"
 alias xr="brew uninstall"
 alias xq="brew info"
 
+# Different Profiles for NVIM 
+alias nesx-vi="NVIM_APPNAME=dotfiles/nvim-instances/nesx-vi nvim"
+
 # YouTube
 alias download_song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
 
