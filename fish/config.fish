@@ -1,122 +1,178 @@
-# === ENV VARS ===
-export HOMEBREW_NO_ENV_HINTS=1
-export RUSTFLAGS="-C linker=clang -C link-arg=-fuse-ld=lld"
-export DOTLINK_ROOT="$HOME/dotfiles/"
+# ~/.config/fish/config.fish
+# Minimal, safe, and robust fish config for dotfiles
+# Gourav — keep this in dotfiles/fish/config.fish and let home-manager symlink it.
 
-set -x MANPAGER bat
-set -gx PATH $HOME/.cabal/bin $PATH $HOME/.ghcup/bin
+# === ENV (fish style) ===
+set -x HOMEBREW_NO_ENV_HINTS 1
+set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
-# === PATH SETUP ===
-set -p PATH ~/.cargo/bin
-set -p PATH ~/.platformio/penv/bin
-set -p PATH ~/.local/bin
-set -p PATH ~/.pub-cache/bin
-set -p PATH ~/.emacs.d/bin
-set -p PATH $FLYCTL_INSTALL/bin
-set -p PATH "$HOME/.local/share/gem/ruby/3.4.0/bin"
+# === PATH (set these early so init commands find binaries) ===
+# Prepend frequently used locations to PATH (fish 'set -p' appends; 'set -U' for universal)
+set -p PATH $HOME/.cargo/bin
+set -p PATH $HOME/.local/bin
+set -p PATH $HOME/.pub-cache/bin
+set -p PATH $HOME/.platformio/penv/bin
+set -p PATH $HOME/.emacs.d/bin
+set -p PATH $HOME/.local/share/gem/ruby/3.4.0/bin
+# nix profile bin (ensure this exists if you used `nix profile install`)
+set -p PATH $HOME/.nix-profile/bin
 
 # === GREETING + PROMPT ===
 set fish_greeting
-set VIRTUAL_ENV_DISABLE_PROMPT 1
+# starship config path (guarded later)
+set -x STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
 
-# === STARSHIP ===
-source ($HOME/.nix-profile/bin/starship init fish --print-full-init | psub)
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+# === STARSHIP (init only if available) ===
+if type -q starship
+    # starship init prints fish code — source it safely
+    source (starship init fish --print-full-init | psub)
+end
 
-# === ZOXIDE ===
-zoxide init fish | source
+# === ZOXIDE (init only if available) ===
+if type -q zoxide
+    zoxide init fish | source
+end
 
-# === FASTFETCH (macOS specific) ===
-if test "$TERM" = xterm-kitty
-    fastfetch --kitty-direct "$HOME/.config/fastfetch/shell_logo.png"
-else if status --is-interactive
-    if test "$TERM_PROGRAM" != vscode
-        fastfetch -l none
+# === FASTFETCH (macOS) ===
+if type -q fastfetch
+    fastfetch -l none
+end
+
+# === NIX integration (if present) ===
+# If using nix daemon profile scripts (shell-compatible), use bass to import them when available.
+if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    if type -q bass
+        bass source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    else
+        # Try to source with sh -> fish translation fallback
+        # This won't always work; having 'bass' is recommended.
+        /bin/sh -c "source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" 2>/dev/null
     end
 end
 
-# === NIX INTEGRATION ===
-if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    bass source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+# === SAFE ALIASES ===
+function _safe_alias --description 'create alias only if cmd exists'
+    set -l name $argv[1]
+    set -l cmd $argv[2..-1]
+    if type -q $cmd[1]
+        functions -c $name status >/dev/null 2>&1; or alias $name $cmd
+    end
 end
 
-# === ALIASES ===
+# Common aliases (guarded)
 alias cls='clear'
-alias so='source ~/dotfiles/fish/config.fish'
-alias fish_config="nvim ~/.config/fish/config.fish"
+alias so="source $HOME/dotfiles/fish/config.fish"
+alias fish_config="nvim $HOME/.config/fish/config.fish"
 
-# File utilities
-alias ls='exa -l --color=always --group-directories-first --icons=always --no-time --no-user '
-alias la='exa -a --color=always --group-directories-first --icons'
-alias ll='exa -l --color=always --group-directories-first --icons'
-alias lt='exa -aT --color=always --group-directories-first --icons'
-alias l.="exa -a | egrep '^\.'"
-alias cat='bat'
-alias tree='eza --tree'
+# File utilities (guarded)
+if type -q exa
+    alias ls='exa -l --color=always --group-directories-first --icons --no-time --no-user'
+    alias la='exa -a --color=always --group-directories-first --icons'
+    alias ll='exa -l --color=always --group-directories-first --icons'
+    alias lt='exa -aT --color=always --group-directories-first --icons'
+else if type -q eza
+    alias ls='eza -l --icons --group-directories-first'
+    alias la='eza -a --icons'
+    alias ll='eza -l --icons'
+    alias lt='eza --tree'
+end
 
-# Text & Terminal
-alias man='batman'
-alias export='set -x VAR'
+if type -q bat
+    alias cat='bat'
+end
 
-# Git
-alias g="git"
-alias gs="git status"
-alias gc="git commit -m"
-alias gp="git push"
-alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles '
+# Terminal / utils
+if type -q rg
+    alias grep='rg'
+end
+if type -q fd
+    alias find='fd'
+end
+if type -q fzf
+    alias vfzf='nvim "$(fzf)"'
+end
 
-# Navigation
-alias cd='z'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
+# Git helper
+if type -q git
+    alias g='git'
+    alias gs='git status'
+    alias gc='git commit -m'
+    alias gp='git push'
+    function dotfiles
+        /usr/bin/git --git-dir=$HOME/dotfiles --work-tree=$HOME $argv
+    end
+end
 
-# Tools
-alias helix='hx'
-alias kc='keychain'
-alias py="python3"
-alias vfzf='nvim "$(fzf)"'
-alias ssh_phone="ssh -p 8022 u0_a272@192.168.0.101"
+# Package manager shortcuts
+if type -q brew
+    alias xi='brew install'
+    alias xr='brew uninstall'
+    alias xq='brew info'
+end
 
-# Package managers (adapt for macOS)
-alias xi="brew install"
-alias xr="brew uninstall"
-alias xq="brew info"
+# YouTube helpers (guarded)
+if type -q yt-dlp
+    alias download_song='yt-dlp -x --audio-format mp3 --embed-thumbnail'
+end
 
-# YouTube
-alias download_song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
+# Utilities
+alias tarnow='tar -acf'
+alias untar='tar -xvf'
+alias wget='wget -c'
 
-# Compilers
-alias gcc="gcc -Wall -Wextra"
-alias g++="g++ -Wall -Wextra"
+# Process helpers
+function psmem
+    ps aux | sort -nrk 4
+end
+function psmem10
+    psmem | head -10
+end
 
-# Search + File ops
-alias grep='rg'
-alias find='fd'
+# === NAVIGATION: use zoxide safely (fallback to builtin cd) ===
+if type -q zoxide
+    function cd --wraps=cd --description 'zoxide + builtin cd'
+        if test (count $argv) -eq 0
+            builtin cd
+        else if test -d $argv[1]
+            builtin cd $argv
+        else
+            zoxide query $argv[1] 2>/dev/null | read -l target
+            if test -n "$target"
+                builtin cd $target
+            else
+                echo "cd: no such file or zoxide match: $argv[1]"
+            end
+        end
+    end
+end
 
-# Torrenting and Downloading with Aria2
-alias at='aria2c --dir=downloads/ --seed-time=0'
-alias am='aria2c --bt-tracker=udp://tracker.openbittorrent.com:80,udp://tracker.opentrackr.org:1337/announce '
-
-# Misc
-alias tarnow='tar -acf '
-alias untar='tar -xvf '
-alias wget='wget -c '
-alias psmem='ps aux | sort -nrk 4'
-alias psmem10='ps aux | sort -nrk 4 | head -10'
+# .. helpers
+function ..
+    cd ..
+end
+function ...
+    cd ../..
+end
+function ....
+    cd ../../..
+end
+function .....
+    cd ../../../..
+end
+function ......
+    cd ../../../../..
+end
 
 # === FUNCTIONS ===
 
-# History support for !! and !$ (Fish version)
+# history shortcuts for !! and !$ (fish idiom)
 function __history_previous_command
     switch (commandline -t)
         case "!"
             commandline -t $history[1]
             commandline -f repaint
         case "*"
-            commandline -i !
+            commandline -i "!"
     end
 end
 
@@ -130,70 +186,66 @@ function __history_previous_command_arguments
     end
 end
 
-# Binding bang-bang support
-if [ "$fish_key_bindings" = fish_vi_key_bindings ]
-    bind -Minsert ! __history_previous_command
+# Bind keys for both bindings style
+if test "$fish_key_bindings" = fish_vi_key_bindings
+    bind -Minsert '!' __history_previous_command
     bind -Minsert '$' __history_previous_command_arguments
 else
-    bind ! __history_previous_command
+    bind '!' __history_previous_command
     bind '$' __history_previous_command_arguments
 end
 
-# Better `cp`
+# safer copy
 function copy
-    set count (count $argv | tr -d \n)
-    if test "$count" = 2; and test -d "$argv[1]"
-        set from (echo $argv[1] | trim-right /)
-        set to (echo $argv[2])
+    if test (count $argv) -eq 2; and test -d $argv[1]
+        set from (string trim-right $argv[1] '/')
+        set to $argv[2]
         command cp -r $from $to
     else
         command cp $argv
     end
 end
 
-# Make a backup of file
 function backup --argument filename
-    cp $filename $filename.bak
+    if test -e $filename
+        command cp $filename $filename.bak
+    else
+        echo "backup: file not found: $filename"
+    end
 end
 
-function yplay
-    set -l query (read -P "Search YouTube: ")
-    if test -z "$query"
-        echo "No search query given."
-        return
+# yplay / ydownload (guarded tools inside)
+if type -q yt-dlp; and type -q fzf; and type -q mpv
+    function yplay
+        set -l query (read -P "Search YouTube: ")
+        if test -z "$query"
+            echo "No search query given."
+            return
+        end
+        set -l url (yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d' | ' -f2 | string trim)
+        if test -z "$url"
+            echo "No selection made."
+            return
+        end
+        mpv --no-video (yt-dlp -f bestaudio -g $url)
     end
-    set -l url (yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d' | ' -f2 | string trim)
-    if test -z "$url"
-        echo "No selection made."
-        return
+
+    function ydownload
+        set -l query (read -P "Search YouTube: ")
+        if test -z "$query"
+            echo "No search query given."
+            return
+        end
+        set -l url (yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d' | ' -f2 | string trim)
+        if test -z "$url"
+            echo "No selection made."
+            return
+        end
+        echo "Downloading audio from: $url"
+        yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 --embed-thumbnail --add-metadata --output "$HOME/Downloads/%(title)s.%(ext)s" $url
     end
-    mpv --no-video (yt-dlp -f bestaudio -g $url)
 end
 
-function ydownload
-    set -l query (read -P "Search YouTube: ")
-    if test -z "$query"
-        echo "No search query given."
-        return
-    end
-    set -l url (yt-dlp "ytsearch10:$query" --flat-playlist --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d' | \
-' -f2 | string trim)
-    if test -z "$url"
-        echo "No selection made."
-        return
-    end
-    echo "Downloading audio from: $url"
-    yt-dlp \
-        -f bestaudio \
-        --extract-audio \
-        --audio-format mp3 \
-        --audio-quality 0 \
-        --embed-thumbnail \
-        --add-metadata \
-        --output "$HOME/Downloads/%(title)s.%(ext)s" \
-        $url
-end
-
-# === DONE NOTIFICATIONS ===
+# === DONE NOTIFICATIONS === (keep as you had)
 set -U __done_min_cmd_duration 10000
 set -U __done_notification_urgency_level low
