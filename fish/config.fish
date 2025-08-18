@@ -20,13 +20,13 @@ set -p PATH $HOME/.nix-profile/bin
 # === GREETING + PROMPT ===
 set fish_greeting
 # starship config path (guarded later)
-set -x STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
+# set -x STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
 
 # === STARSHIP (init only if available) ===
-if type -q starship
-    # starship init prints fish code — source it safely
-    source (starship init fish --print-full-init | psub)
-end
+# if type -q starship
+#     # starship init prints fish code — source it safely
+#     source (starship init fish --print-full-init | psub)
+# end
 
 # === ZOXIDE (init only if available) ===
 if type -q zoxide
@@ -35,10 +35,14 @@ end
 
 # === FASTFETCH (macOS) ===
 if type -q fastfetch
-    fastfetch -l none
+    if not set -q __FASTFETCH_DONE
+        fastfetch -l none
+        set -x __FASTFETCH_DONE 1
+    end
 end
 
 # === NIX integration (if present) ===
+source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
 # If using nix daemon profile scripts (shell-compatible), use bass to import them when available.
 if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     if type -q bass
@@ -246,6 +250,5 @@ if type -q yt-dlp; and type -q fzf; and type -q mpv
     end
 end
 
-# === DONE NOTIFICATIONS === (keep as you had)
-set -U __done_min_cmd_duration 10000
-set -U __done_notification_urgency_level low
+# === HYDRO PROMPT (FISHER) ===
+set -U hydro_multiline true

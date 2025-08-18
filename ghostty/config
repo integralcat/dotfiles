@@ -5,7 +5,7 @@ selection-background = 242630
 selection-foreground = f8f8f2
 
 # === UI ===
-background-opacity = 0.9
+background-opacity = 0.95
 
 # === Font ===
 font-family = "JetBrainsMono Nerd Font"
