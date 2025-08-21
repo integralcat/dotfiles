@@ -1,6 +1,4 @@
 # ~/.config/fish/config.fish
-# Minimal, safe, and robust fish config for dotfiles
-# Gourav — keep this in dotfiles/fish/config.fish and let home-manager symlink it.
 
 # === ENV (fish style) ===
 set -x HOMEBREW_NO_ENV_HINTS 1
@@ -8,13 +6,7 @@ set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
 # === PATH (set these early so init commands find binaries) ===
 # Prepend frequently used locations to PATH (fish 'set -p' appends; 'set -U' for universal)
-set -p PATH $HOME/.cargo/bin
 set -p PATH $HOME/.local/bin
-set -p PATH $HOME/.pub-cache/bin
-set -p PATH $HOME/.platformio/penv/bin
-set -p PATH $HOME/.emacs.d/bin
-set -p PATH $HOME/.local/share/gem/ruby/3.4.0/bin
-# nix profile bin (ensure this exists if you used `nix profile install`)
 set -p PATH $HOME/.nix-profile/bin
 
 # === GREETING + PROMPT ===
@@ -33,7 +25,8 @@ if type -q zoxide
     zoxide init fish | source
 end
 
-# === FASTFETCH (macOS) ===
+# === fastfetch ~ macOS ===
+# Note ~ Loads only One time per session
 if type -q fastfetch
     if not set -q __FASTFETCH_DONE
         fastfetch -l none
@@ -65,7 +58,7 @@ end
 
 # Common aliases (guarded)
 alias cls='clear'
-alias so="source $HOME/dotfiles/fish/config.fish"
+alias so="source $HOME/.config/fish/config.fish"
 alias fish_config="nvim $HOME/.config/fish/config.fish"
 
 # File utilities (guarded)
@@ -75,10 +68,10 @@ if type -q exa
     alias ll='exa -l --color=always --group-directories-first --icons'
     alias lt='exa -aT --color=always --group-directories-first --icons'
 else if type -q eza
-    alias ls='eza -l --icons --group-directories-first'
-    alias la='eza -a --icons'
-    alias ll='eza -l --icons'
-    alias lt='eza --tree'
+    alias ls='eza -l --color=always --group-directories-first --icons --no-time --no-user'
+    alias la='eza -a --color=always --group-directories-first --icons'
+    alias ll='eza -l --color=always --group-directories-first --icons'
+    alias lt='eza -aT --color=always --group-directories-first --icons'
 end
 
 if type -q bat
@@ -93,12 +86,11 @@ if type -q fd
     alias find='fd'
 end
 if type -q fzf
-    alias vfzf='nvim "$(fzf)"'
+    alias nf='nvim "$(fzf)"'
 end
 
 # Git helper
 if type -q git
-    alias g='git'
     alias gs='git status'
     alias gc='git commit -m'
     alias gp='git push'
@@ -123,32 +115,6 @@ end
 alias tarnow='tar -acf'
 alias untar='tar -xvf'
 alias wget='wget -c'
-
-# Process helpers
-function psmem
-    ps aux | sort -nrk 4
-end
-function psmem10
-    psmem | head -10
-end
-
-# === NAVIGATION: use zoxide safely (fallback to builtin cd) ===
-if type -q zoxide
-    function cd --wraps=cd --description 'zoxide + builtin cd'
-        if test (count $argv) -eq 0
-            builtin cd
-        else if test -d $argv[1]
-            builtin cd $argv
-        else
-            zoxide query $argv[1] 2>/dev/null | read -l target
-            if test -n "$target"
-                builtin cd $target
-            else
-                echo "cd: no such file or zoxide match: $argv[1]"
-            end
-        end
-    end
-end
 
 # .. helpers
 function ..
