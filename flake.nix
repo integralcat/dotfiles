@@ -31,9 +31,9 @@
           rsync # fast file sync/copy
           tldr # simplified man pages
           hyperfine # benchmarking tool
+          imagemagick # Image/PDF manipultion tool
           openssh # SSH client/server
           iperf3 # network benchmarking tool
-          ookla-speedtest # speedtesting
 
           # Networking & downloads
           aria2 # advanced downloader
