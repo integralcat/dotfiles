@@ -18,6 +18,7 @@
           eza # modern 'ls'
           bat # cat with syntax highlighting
           fd # fast 'find'
+          gh # github cli
           ripgrep # fast 'grep'
           zoxide # smarter cd
           mosh # mobile-friendly SSH replacement
