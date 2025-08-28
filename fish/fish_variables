@@ -15,7 +15,7 @@ SETUVAR _fisher_plugins:jorgebucaran/fisher\x1efranciscolourenco/done\x1eoh\x2dm
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR _hydro_git_16140:main\u2022\x20
 SETUVAR _hydro_git_16838:testing\u2022\x20\u21911\x20\u21931\x20
-SETUVAR _hydro_git_33709:testing\u2022\x20\u21912\x20\u21931\x20
+SETUVAR _hydro_git_33709:testing\u2022\x20\u21913\x20\u21931\x20
 SETUVAR _hydro_git_8954:main\u2022\x20\u21911\x20\u21931\x20
 SETUVAR fish_color_autosuggestion:brblack
 SETUVAR fish_color_cancel:\x2dr
