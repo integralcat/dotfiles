@@ -33,6 +33,7 @@
           tldr # simplified man pages
           hyperfine # benchmarking tool
           imagemagick # Image/PDF manipultion tool
+          ghostscript # for PDF support with imagemagick
           openssh # SSH client/server
           iperf3 # network benchmarking tool
 
@@ -45,6 +46,7 @@
           neovim # text editor
           uv # Python package manager / installer
           python3 # Python interpreter
+          go
           rustup # Rust toolchain installer
 
           # Shell

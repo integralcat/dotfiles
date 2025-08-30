@@ -13,10 +13,9 @@ SETUVAR _fisher_jorgebucaran_2F_hydro_files:\x7e/\x2econfig/fish/functions/fish_
 SETUVAR _fisher_oh_2D_my_2D_fish_2F_plugin_2D_bang_2D_bang_files:\x7e/\x2econfig/fish/functions/__history_previous_command\x2efish\x1e\x7e/\x2econfig/fish/functions/__history_previous_command_arguments\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/plugin\x2dbang\x2dbang\x2efish
 SETUVAR _fisher_plugins:jorgebucaran/fisher\x1efranciscolourenco/done\x1eoh\x2dmy\x2dfish/plugin\x2dbang\x2dbang\x1eedc/bass\x1ejorgebucaran/hydro
 SETUVAR _fisher_upgraded_to_4_4:\x1d
-SETUVAR _hydro_git_16140:main\u2022\x20
-SETUVAR _hydro_git_16838:testing\u2022\x20\u21911\x20\u21931\x20
-SETUVAR _hydro_git_33709:testing\u2022\x20\u21914\x20\u21931\x20
-SETUVAR _hydro_git_8954:main\u2022\x20\u21911\x20\u21931\x20
+SETUVAR _hydro_git_54038:main\u2022\x20
+SETUVAR _hydro_git_75033:main\u2022\x20
+SETUVAR _hydro_git_75412:testing\u2022\x20\u21915\x20\u21931\x20
 SETUVAR fish_color_autosuggestion:brblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:normal
@@ -48,4 +47,3 @@ SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
 SETUVAR fish_user_paths:/opt/homebrew/opt/llvm/bin\x1e/opt/homebrew/bin
 SETUVAR hydro_multiline:true
-SETUVAR hydro_pre_prompt_newline:true
