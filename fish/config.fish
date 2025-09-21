@@ -218,3 +218,7 @@ end
 
 # === HYDRO PROMPT (FISHER) ===
 set -U hydro_multiline true
+
+export BLENDER_HOST='host.docker.internal'
+export BLENDER_PORT=9876
+export PATH="$HOME/dev/flutter/bin:$PATH"

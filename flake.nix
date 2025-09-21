@@ -40,6 +40,8 @@
           # Networking & downloads
           aria2 # advanced downloader
           wget # classic downloader
+          ffmpeg
+          temurin-bin-21 # JavaSDK
           yt-dlp # youtube-dl fork
 
           # Dev tools
