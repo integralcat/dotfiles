@@ -7,7 +7,6 @@ set -x VIRTUAL_ENV_DISABLE_PROMPT 1
 # === PATH (set these early so init commands find binaries) ===
 # Prepend frequently used locations to PATH (fish 'set -p' appends; 'set -U' for universal)
 set -p PATH $HOME/.local/bin
-set -p PATH $HOME/.nix-profile/bin
 
 # === GREETING + PROMPT ===
 set fish_greeting
@@ -31,19 +30,6 @@ if type -q fastfetch
     if not set -q __FASTFETCH_DONE
         fastfetch -l none
         set -x __FASTFETCH_DONE 1
-    end
-end
-
-# === NIX integration (if present) ===
-source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-# If using nix daemon profile scripts (shell-compatible), use bass to import them when available.
-if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    if type -q bass
-        bass source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    else
-        # Try to source with sh -> fish translation fallback
-        # This won't always work; having 'bass' is recommended.
-        /bin/sh -c "source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" 2>/dev/null
     end
 end
 
@@ -75,7 +61,7 @@ else if type -q eza
 end
 
 if type -q bat
-    alias cat='bat'
+    alias cat='bat -p'
 end
 
 # Terminal / utils
