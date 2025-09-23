@@ -7,7 +7,6 @@ set -x MANPAGER bat
 set -gx PATH $HOME/.cabal/bin $PATH $HOME/.ghcup/bin
 
 # === PATH SETUP ===
-set -p PATH ~/.cargo/bin
 set -p PATH ~/.platformio/penv/bin
 set -p PATH ~/.local/bin
 set -p PATH ~/.pub-cache/bin
@@ -19,10 +18,6 @@ set -p PATH "$HOME/.local/share/gem/ruby/3.4.0/bin"
 set fish_greeting
 set VIRTUAL_ENV_DISABLE_PROMPT 1
 
-# === STARSHIP ===
-source ($HOME/.nix-profile/bin/starship init fish --print-full-init | psub)
-export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-
 # === ZOXIDE ===
 zoxide init fish | source
 
@@ -33,11 +28,6 @@ else if status --is-interactive
     if test "$TERM_PROGRAM" != vscode
         fastfetch -l none
     end
-end
-
-# === NIX INTEGRATION ===
-if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-    bass source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 end
 
 # === ALIASES ===
@@ -75,7 +65,6 @@ alias ......='cd ../../../../..'
 
 # Tools
 alias helix='hx'
-alias kc='keychain'
 alias py="python3"
 alias vfzf='nvim "$(fzf)"'
 alias ssh_phone="ssh -p 8022 u0_a272@192.168.0.101"
