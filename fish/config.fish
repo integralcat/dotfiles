@@ -10,6 +10,7 @@ set -x MANPAGER bat
 # === PATH SETUP ===
 set -p PATH ~/.local/bin
 set -p PATH /opt/homebrew/bin
+set -p PATH ~/.rustup/toolchains/stable-aarch64-apple-darwin/bin/
 
 # === GREETING + PROMPT ===
 set fish_greeting
@@ -19,7 +20,7 @@ set VIRTUAL_ENV_DISABLE_PROMPT 1
 zoxide init fish | source
 
 function fish_greeting
-    fastfetch -l none
+    ~/.local/bin/nanofetch
 end
 
 # === ALIASES ===
