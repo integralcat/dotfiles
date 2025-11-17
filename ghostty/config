@@ -16,8 +16,8 @@ window-position-x = 0
 window-position-y = 0
 
 # === Window Size ===
-window-width = 105
-window-height = 30
+window-width = 150
+window-height = 45
 
 # === MISC ===
 macos-titlebar-proxy-icon = hidden
@@ -25,3 +25,5 @@ macos-option-as-alt = true
 focus-follows-mouse = true
 shell-integration = fish
 window-inherit-working-directory = false
+
+theme = Citruszest

@@ -1,20 +1,23 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR --export CPPFLAGS:\x2dI/opt/homebrew/opt/llvm/include
+SETUVAR --export HUSHLOGIN:TRUE
 SETUVAR --export KITTY_ALLOW_GRAPHICS:1
 SETUVAR --export LDFLAGS:\x2dL/opt/homebrew/opt/llvm/lib
 SETUVAR __done_min_cmd_duration:10000
 SETUVAR __done_notification_urgency_level:low
+SETUVAR __fish_git_prompt_shorten_path:true
+SETUVAR __fish_git_prompt_showdirtystate:1
+SETUVAR __fish_git_prompt_showstashstate:0
+SETUVAR __fish_git_prompt_showuntrackedfiles:1
+SETUVAR __fish_git_prompt_showupstream:0
+SETUVAR __fish_git_prompt_use_informative_chars:true
 SETUVAR __fish_initialized:3800
 SETUVAR _fisher_edc_2F_bass_files:\x7e/\x2econfig/fish/functions/__bass\x2epy\x1e\x7e/\x2econfig/fish/functions/bass\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
-SETUVAR _fisher_jorgebucaran_2F_hydro_files:\x7e/\x2econfig/fish/functions/fish_mode_prompt\x2efish\x1e\x7e/\x2econfig/fish/functions/fish_prompt\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/hydro\x2efish
 SETUVAR _fisher_oh_2D_my_2D_fish_2F_plugin_2D_bang_2D_bang_files:\x7e/\x2econfig/fish/functions/__history_previous_command\x2efish\x1e\x7e/\x2econfig/fish/functions/__history_previous_command_arguments\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/plugin\x2dbang\x2dbang\x2efish
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1eedc/bass\x1eoh\x2dmy\x2dfish/plugin\x2dbang\x2dbang\x1ejorgebucaran/hydro
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1eedc/bass\x1eoh\x2dmy\x2dfish/plugin\x2dbang\x2dbang
 SETUVAR _fisher_upgraded_to_4_4:\x1d
-SETUVAR _hydro_git_11342:nv\u2022\x20
-SETUVAR _hydro_git_2877:testing\u2022\x20
-SETUVAR _hydro_git_4337:testing\u2022\x20
 SETUVAR fish_color_autosuggestion:brblack
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:normal
@@ -44,5 +47,6 @@ SETUVAR fish_pager_color_description:yellow\x1e\x2di
 SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
+SETUVAR fish_prompt_git_async:true
 SETUVAR fish_user_paths:/opt/homebrew/opt/node\x4022/bin\x1e/opt/homebrew/opt/llvm/bin\x1e/opt/homebrew/bin\x1e/Applications/Ghostty\x2eapp/Contents/MacOS
 SETUVAR hydro_multiline:true
