@@ -24,6 +24,11 @@ if type -q starship
     set -gx STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
 end
 
+# direnv
+if type -q direnv
+    direnv hook fish | source
+end
+
 # manpager
 if type -q bat
     set -gx MANPAGER bat
@@ -62,7 +67,7 @@ end
 
 # cat
 if type -q bat
-    alias cat="bat -p"
+    alias cat="bat --decorations never --color always"
 end
 
 # git
@@ -90,6 +95,19 @@ if type -q brew
     alias xq="brew info"
 end
 
+if type -q aria2c
+    # Fast mode (legal max: 16)
+    alias aget="aria2c -x 16 -s 48 -k 4M --file-allocation=falloc"
+    # Stable mode
+    alias agetslow='aria2c -x 8 -s 16 --enable-http-pipelining=true'
+    # Torrent direct
+    alias ator='aria2c --enable-dht=true --enable-dht6=true --bt-max-peers=128 --seed-time=0 --seed-ratio=0.15'
+    # Magnet direct
+    alias amag='aria2c --enable-dht=true --enable-dht6=true --bt-max-peers=128 --seed-time=0 --seed-ratio=0.15'
+    # Resume downloads
+    alias aresume="aria2c --input-file=$HOME/.aria2/aria2.session --save-session=$HOME/.aria2/aria2.session"
+end
+
 # yt-dlp
 if type -q yt-dlp
     alias download_song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
@@ -111,39 +129,6 @@ function backup --argument file
         cp $file $file.bak
     else
         echo "file not found: $file"
-    end
-end
-
-# yplay
-if type -q mpv; and type -q yt-dlp; and type -q fzf
-    function yplay
-        set -l q (read -P "Search YouTube: ")
-        test -z "$q"; and echo "no query"; and return
-
-        set -l url (yt-dlp "ytsearch10:$q" --flat-playlist \
-            --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d'|' -f2 | string trim)
-
-        test -z "$url"; and echo "no selection"; and return
-
-        mpv --no-video (yt-dlp -f bestaudio -g $url)
-    end
-end
-
-# ydownload
-if type -q yt-dlp; and type -q fzf
-    function ydownload
-        set -l q (read -P "Search YouTube: ")
-        test -z "$q"; and echo "no query"; and return
-
-        set -l url (yt-dlp "ytsearch10:$q" --flat-playlist \
-            --print "%(title)s | https://youtu.be/%(id)s" | fzf | cut -d'|' -f2 | string trim)
-
-        test -z "$url"; and echo "no selection"; and return
-
-        echo "Downloading: $url"
-        yt-dlp -f bestaudio --extract-audio --audio-format mp3 \
-            --audio-quality 0 --embed-thumbnail --add-metadata \
-            --output "$HOME/Downloads/%(title)s.%(ext)s" $url
     end
 end
 

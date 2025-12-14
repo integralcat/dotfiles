@@ -16,14 +16,29 @@ window-position-x = 0
 window-position-y = 0
 
 # === Window Size ===
-window-width = 150
-window-height = 45
+window-width = 110
+window-height = 29
 
 # === MISC ===
+# macos-titlebar-style = hidden
+macos-titlebar-style = tabs
 macos-titlebar-proxy-icon = hidden
+macos-window-buttons = hidden
 macos-option-as-alt = true
 focus-follows-mouse = true
 shell-integration = fish
 window-inherit-working-directory = false
 
-theme = Citruszest
+# === theme ===
+theme = Catppuccin Mocha 
+
+
+# === CURSOR ===
+shell-integration-features = no-cursor
+cursor-style = block 
+cursor-color = f096cb
+cursor-style-blink = false
+
+# Cursor Shaders
+custom-shader = ~/.config/ghostty/shaders/cursor_warp.glsl
+custom-shader = ~/.config/ghostty/shaders/ripple_cursor.glsl
