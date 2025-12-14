@@ -21,6 +21,7 @@ window-height = 29
 
 # === MISC ===
 # macos-titlebar-style = hidden
+confirm-close-surface = false
 macos-titlebar-style = tabs
 macos-titlebar-proxy-icon = hidden
 macos-window-buttons = hidden

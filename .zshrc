@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 ##### STARTUP PROFILER  #####
 # zmodload zsh/zprof
 
@@ -67,6 +74,9 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt HIST_VERIFY # Needs to enter twice
+setopt BANG_HIST
 
 ##### COMPLETION STYLING #####
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -94,7 +104,9 @@ command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
 ##### ALIASES #####
-alias vim=nvim
+alias reload="source ~/.zshrc"
+alias zsh_config="nvim ~/.zshrc"
+alias vi=nvim
 alias c=clear
 alias g=git
 alias gs='git status'
@@ -104,7 +116,7 @@ alias gp='git push'
 ##### LS / TREE #####
 if command -v eza >/dev/null; then
   alias ls='eza -l --icons --group-directories-first'
-  alias la='eza -a --icons'
+  alias la='eza -la --icons'
   alias ll='eza -l --icons'
   alias lt='eza -aT --icons'
   alias tree='eza --tree'
