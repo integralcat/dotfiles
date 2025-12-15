@@ -1,0 +1,85 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "outline_panel": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right"
+  },
+  "project_panel": {
+    "dock": "right"
+  },
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Material Icon Theme"
+  },
+  "ui_font_weight": 500.0,
+  "buffer_font_weight": 500.0,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "vim_mode": true,
+  "terminal": {
+    "cursor_shape": "bar",
+    "option_as_meta": true
+  },
+  "base_keymap": "VSCode",
+  "agent": {
+    "enabled": false,
+    "button": false,
+    "model_parameters": []
+  },
+  "relative_line_numbers": "enabled",
+  "gutter": {
+    "line_numbers": true
+  },
+  "minimap": {
+    "show": "never"
+  },
+  "cursor_blink": false,
+  "autosave": "off",
+  "buffer_font_fallbacks": ["Courier New"],
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "wrap_guides": [80],
+  "ui_font_size": 16.0,
+  "buffer_font_size": 15.0,
+  "theme": {
+    "mode": "system",
+    "light": "Ayu Light",
+    "dark": "Fleet Dark"
+  },
+  "disable_ai": true,
+  "autoscroll_on_clicks": true,
+  "confirm_quit": true,
+  "load_direnv": "shell_hook",
+  "tab_bar": {
+    "show": true,
+    "show_tab_bar_buttons": false,
+    "show_nav_history_buttons": false
+  },
+  "tabs": {
+    "show_diagnostics": "all"
+  },
+  "toolbar": {
+    "breadcrumbs": true,
+    "quick_actions": false,
+    "selections_menu": false,
+    "agent_review": false,
+    "code_actions": false
+  },
+  "indent_guides": {
+    "coloring": "indent_aware"
+  }
+}
