@@ -1,0 +1,146 @@
+🧰 Modern Nix Commands (Profiles, Store, Cleanup)
+
+🔍 Inspect what you have
+
+List explicitly installed packages (new Nix way)
+
+nix profile list
+
+Show profile history (generations)
+
+nix profile history
+
+Show what a store path depends on
+
+nix path-info -r /nix/store/<hash>-pkg
+
+Show what keeps a store path alive (IMPORTANT)
+
+nix-store -q --roots /nix/store/<hash>-pkg
+
+
+⸻
+
+❌ Remove packages (correct way)
+
+Remove a package from profile
+
+nix profile remove kitty
+
+Remove by index (from nix profile list)
+
+nix profile remove 3
+
+
+⸻
+
+🧱 Generations / history management
+
+Delete profile history older than X
+
+nix profile wipe-history --older-than 7d
+
+Delete ALL old generations (keep current)
+
+nix profile wipe-history --all
+
+Show Home Manager generations
+
+home-manager generations
+
+Delete old Home Manager generations
+
+home-manager expire-generations "-7 days"
+
+Show nix-darwin generations
+
+darwin-rebuild list-generations
+
+Delete old nix-darwin generations
+
+sudo darwin-rebuild switch --delete-older-than 7d
+
+
+⸻
+
+🧹 Garbage collection (disk cleanup)
+
+Safe garbage collection
+
+nix store gc
+
+Verbose GC (see what’s deleted)
+
+nix store gc --verbose
+
+Optimize store (dedupe files)
+
+nix store optimise
+
+
+⸻
+
+📦 Store & disk usage
+
+Show size of a store path
+
+nix path-info -Sh /nix/store/<hash>-pkg
+
+Show largest store paths
+
+nix path-info -Sh /nix/store/* | sort -hr | head
+
+Show everything reachable from current system (darwin)
+
+nix-store -qR /run/current-system
+
+Show everything reachable from user profile
+
+nix-store -qR ~/.nix-profile
+
+
+⸻
+
+🧪 Flakes & dev shells
+
+Inspect flake outputs
+
+nix flake show
+
+Enter dev shell
+
+nix develop
+
+Run command inside dev shell
+
+nix develop --command bash
+
+
+⸻
+
+🛠 Debugging & sanity checks
+
+Check flake evaluation
+
+nix flake check
+
+Show current system
+
+nix eval --raw builtins.currentSystem
+
+Verify nix version & features
+
+nix --version
+
+
+⸻
+
+🧠 One-line mental map (remember this)
+
+Task	Command
+What did I install?	nix profile list
+Why is this in store?	nix-store -q --roots
+Remove old snapshots	nix profile wipe-history
+Actually free space	nix store gc
+Biggest disk hogs	nix path-info -Sh
+

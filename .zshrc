@@ -68,11 +68,13 @@ zstyle ':fzf-tab:*' fzf-command fzf
 zstyle ':fzf-tab:complete:*' fzf-preview 'ls --color=auto $realpath'
 
 ##### ENV #####
+export EDITOR=nvim
 export HOMEBREW_NO_ENV_HINTS=1
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export CARGO_TARGET_DIR="$HOME/.cargo-target"
-export RUSTFLAGS="-C linker=clang -C link-arg=-fuse-ld=lld"
-export CFLAGS="clang -std=c99 -Wall -Werror"
+# export RUSTFLAGS="-C linker=clang"
+export CFLAGS="-std=c99 -Wall"
+export CXXFLAGS="-Wall"
 
 ##### PATH #####
 path_prepend() { [[ -d $1 ]] && path=($1 $path); }

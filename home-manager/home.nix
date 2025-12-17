@@ -15,9 +15,12 @@
     eza
     fd
     fzf
+	gh # github-cli
     ripgrep
     zoxide
 	bat-extras.batman
+	# dnsdomainname ftp hostname ifconfig logger ping ping6 rcp rexec rlogin rsh talk telnet tftp traceroute whois
+	inetutils 
 
     # dev
     neovim

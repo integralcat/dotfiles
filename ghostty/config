@@ -20,7 +20,7 @@ window-width = 110
 window-height = 29
 
 # === MISC ===
-confirm-close-surface = false
+# confirm-close-surface = false
 macos-titlebar-style = tabs
 # macos-titlebar-proxy-icon = hidden
 macos-window-buttons = hidden
