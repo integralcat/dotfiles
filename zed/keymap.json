@@ -1,0 +1,129 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-1": ["pane::ActivateItem", 0]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-2": ["pane::ActivateItem", 1]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-3": ["pane::ActivateItem", 2]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-4": ["pane::ActivateItem", 3]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-5": ["pane::ActivateItem", 4]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-6": ["pane::ActivateItem", 5]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-7": ["pane::ActivateItem", 6]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-8": ["pane::ActivateItem", 7]
+    }
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-9": ["pane::ActivateItem", 8]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-1": ["workspace::ActivatePane", 0]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-2": ["workspace::ActivatePane", 1]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-3": ["workspace::ActivatePane", 2]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-4": ["workspace::ActivatePane", 3]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-5": ["workspace::ActivatePane", 4]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-6": ["workspace::ActivatePane", 5]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-7": ["workspace::ActivatePane", 6]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-8": ["workspace::ActivatePane", 7]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-9": ["workspace::ActivatePane", 8]
+    }
+  }
+]

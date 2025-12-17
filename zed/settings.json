@@ -81,5 +81,15 @@
   },
   "indent_guides": {
     "coloring": "indent_aware"
+  },
+  "languages": {
+    "Nix": {
+      "formatter": {
+        "external": {
+          "command": "alejandra", // or "nixfmt"
+          "arguments": ["--quiet", "--"]
+        }
+      }
+    }
   }
 }
