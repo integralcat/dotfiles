@@ -1,6 +1,6 @@
-🧰 Modern Nix Commands (Profiles, Store, Cleanup)
+Modern Nix Commands (Profiles, Store, Cleanup)
 
-🔍 Inspect what you have
+Inspect what you have
 
 List explicitly installed packages (new Nix way)
 
@@ -21,7 +21,7 @@ nix-store -q --roots /nix/store/<hash>-pkg
 
 ⸻
 
-❌ Remove packages (correct way)
+Remove packages (correct way)
 
 Remove a package from profile
 
@@ -34,7 +34,7 @@ nix profile remove 3
 
 ⸻
 
-🧱 Generations / history management
+Generations / history management
 
 Delete profile history older than X
 
@@ -63,7 +63,7 @@ sudo darwin-rebuild switch --delete-older-than 7d
 
 ⸻
 
-🧹 Garbage collection (disk cleanup)
+Garbage collection (disk cleanup)
 
 Safe garbage collection
 
@@ -80,7 +80,7 @@ nix store optimise
 
 ⸻
 
-📦 Store & disk usage
+Store & disk usage
 
 Show size of a store path
 
@@ -98,49 +98,4 @@ Show everything reachable from user profile
 
 nix-store -qR ~/.nix-profile
 
-
-⸻
-
-🧪 Flakes & dev shells
-
-Inspect flake outputs
-
-nix flake show
-
-Enter dev shell
-
-nix develop
-
-Run command inside dev shell
-
-nix develop --command bash
-
-
-⸻
-
-🛠 Debugging & sanity checks
-
-Check flake evaluation
-
-nix flake check
-
-Show current system
-
-nix eval --raw builtins.currentSystem
-
-Verify nix version & features
-
-nix --version
-
-
-⸻
-
-🧠 One-line mental map (remember this)
-
-Task	Command
-What did I install?	nix profile list
-Why is this in store?	nix-store -q --roots
-Remove old snapshots	nix profile wipe-history
-Actually free space	nix store gc
-Biggest disk hogs	nix path-info -Sh
 

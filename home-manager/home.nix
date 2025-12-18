@@ -21,8 +21,9 @@
 	bat-extras.batman
 	# dnsdomainname ftp hostname ifconfig logger ping ping6 rcp rexec rlogin rsh talk telnet tftp traceroute whois
 	inetutils 
-
+	glow # Markdown Preview
     # dev
+	fish
     neovim
     tmux
     hyperfine

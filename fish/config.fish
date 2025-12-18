@@ -1,3 +1,7 @@
+if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+end
+
 # env vars
 set -gx HOMEBREW_NO_ENV_HINTS 1
 set -gx RUSTFLAGS "-C linker=clang -C link-arg=-fuse-ld=lld"
@@ -21,7 +25,6 @@ __safe_add_path ~/.rustup/toolchains/stable-aarch64-apple-darwin/bin
 # starship (only if installed)
 if type -q starship
     starship init fish --print-full-init | source
-    set -gx STARSHIP_CONFIG "$HOME/.config/starship/starship.toml"
 end
 
 # direnv
@@ -50,16 +53,17 @@ function __safe_alias
 end
 
 # basic aliases
-alias cls="clear"
-alias so="source ~/dotfiles/fish/config.fish"
+alias reload="source ~/dotfiles/fish/config.fish"
 alias fish_config="nvim ~/.config/fish/config.fish"
+alias vi=nvim
 
 # ls / tree
 if type -q eza
-    alias ls="eza -l --color=always --group-directories-first --icons=always --no-time --no-user"
-    alias la="eza -a --color=always --group-directories-first --icons"
-    alias ll="eza -l --color=always --group-directories-first --icons"
-    alias lt="eza -aT --color=always --group-directories-first --icons"
+    alias ls='eza -l --group-directories-first --no-user --no-time'
+    alias la='eza -la --group-directories-first'
+    alias ll='eza -l --group-directories-first'
+    alias lt='eza -aT'
+    alias ldot='eza -a --ignore-glob="[!.]*"'
     alias tree="eza --tree"
 else
     alias ls="ls -lah"
@@ -67,7 +71,7 @@ end
 
 # cat
 if type -q bat
-    alias cat="bat --decorations never --color always"
+    alias cat="bat -p"
 end
 
 # git
@@ -80,9 +84,6 @@ alias gp="git push"
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-if type -q z
-    alias cd="z"
-end
 
 # search tools
 __safe_alias grep rg
@@ -96,22 +97,13 @@ if type -q brew
 end
 
 if type -q aria2c
-    # Fast mode (legal max: 16)
     alias aget="aria2c -x 16 -s 48 -k 4M --file-allocation=falloc"
-    # Stable mode
     alias agetslow='aria2c -x 8 -s 16 --enable-http-pipelining=true'
-    # Torrent direct
     alias ator='aria2c --enable-dht=true --enable-dht6=true --bt-max-peers=128 --seed-time=0 --seed-ratio=0.15'
-    # Magnet direct
     alias amag='aria2c --enable-dht=true --enable-dht6=true --bt-max-peers=128 --seed-time=0 --seed-ratio=0.15'
-    # Resume downloads
     alias aresume="aria2c --input-file=$HOME/.aria2/aria2.session --save-session=$HOME/.aria2/aria2.session"
 end
 
-# yt-dlp
-if type -q yt-dlp
-    alias download_song="yt-dlp -x --audio-format mp3 --embed-thumbnail"
-end
 
 # file copy
 function copy
@@ -137,7 +129,3 @@ if type -q zoxide
     zoxide init fish | source
 end
 
-# hydro
-if set -q hydro_multiline
-    set -g hydro_multiline true
-end
