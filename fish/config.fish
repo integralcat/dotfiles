@@ -4,10 +4,13 @@ end
 
 # env vars
 set -gx HOMEBREW_NO_ENV_HINTS 1
-set -gx RUSTFLAGS "-C linker=clang -C link-arg=-fuse-ld=lld"
+# set -gx RUSTFLAGS "-C linker=clang -C link-arg=-fuse-ld=lld"
 set -gx CFLAGS "clang -std=c99 -Wall -Werror"
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 set -gx CARGO_TARGET_DIR "$HOME/.cargo-target"
+set -gx EDITOR nvim
+# /usr/share/man's Manpages
+set -gx MANPATH $MANPATH (xcrun --show-sdk-path)/usr/share/man
 
 # safe PATH adding
 function __safe_add_path
@@ -128,4 +131,3 @@ end
 if type -q zoxide
     zoxide init fish | source
 end
-

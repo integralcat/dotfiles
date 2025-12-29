@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of gourav";
+  description = "Home Manager configuration";
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
@@ -10,21 +10,23 @@
     };
   };
 
-  outputs =
-    { nixpkgs, home-manager, ... }:
-    let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      homeConfigurations."gourav" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+  outputs = {
+    nixpkgs,
+    home-manager,
+    ...
+  }: let
+    system = "aarch64-darwin";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
+    homeConfigurations."gourav" = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
 
-        # the path to home.nix.
-        modules = [ ./home.nix ];
+      # the path to home.nix.
+      modules = [./home.nix];
 
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-      };
+      # Optionally use extraSpecialArgs
+      # to pass through arguments to home.nix
     };
+  };
 }
+

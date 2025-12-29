@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.username = "gourav";
   home.homeDirectory = "/Users/gourav";
 
@@ -8,35 +10,43 @@
   home.enableNixpkgsReleaseCheck = false;
 
   home.packages = with pkgs; [
-    # core tools
+    # core
     aria2
     bat
+    bat-extras.batman
     dust
     eza
     fd
+	stow
     fzf
-	gh # github-cli
+    gh
     ripgrep
     zoxide
-	bat-extras.batman
-	# dnsdomainname ftp hostname ifconfig logger ping ping6 rcp rexec rlogin rsh talk telnet tftp traceroute whois
-	inetutils 
-	glow # Markdown Preview
+    glow # Markdown Reader
+    inetutils # telnet etc by GNU.
+    tealdeer # tldr (rust)
+
     # dev
-	fish
+    fish
     neovim
+    nodejs_24
     tmux
     hyperfine
     bear
     silicon
 
-    # rust / python
+    # alejandra
+    # nil
+
+    # ai
+    opencode
+
+    # lang
     rustup
     uv
 
-    # misc
+    # shell
     starship
-    tealdeer
   ];
 
   programs.home-manager.enable = true;
@@ -45,8 +55,6 @@
   programs.direnv.nix-direnv.enable = true;
 
   programs.fish.enable = false;
-
-  # disable others explicitly if you want
   programs.zsh.enable = false;
   programs.bash.enable = false;
 }

@@ -27,6 +27,7 @@ Windows (Tabs)
 - Ctrl-a Ctrl-h          -> previous window
 - Ctrl-a Ctrl-l          -> next window
 - Ctrl-a w               -> fuzzy window switch (fzf)
+- Ctrl-a q               -> select Window thru number
 
 Panes (Splits)
 - Ctrl-a |               -> split left/right
@@ -43,6 +44,8 @@ Navigation & Control
 - Ctrl-a Ctrl-s          -> save tmux session
 - Ctrl-a Ctrl-r          -> restore tmux session
 - Ctrl-a r               -> reload tmux config
+- Ctrl-a q               -> select pane thru number
+
 
 ## KITTY CONFIG (~/.config/kitty/kitty.conf)
 ---
