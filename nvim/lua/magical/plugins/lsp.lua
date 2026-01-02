@@ -1,10 +1,6 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-		},
 		config = function()
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -13,17 +9,6 @@ return {
 				client.server_capabilities.documentFormattingProvider = false
 				client.server_capabilities.documentRangeFormattingProvider = false
 			end
-
-			require("mason").setup()
-
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"ts_ls",
-					"eslint",
-					"lua_ls",
-					"clangd",
-				},
-			})
 
 			-- TypeScript
 			vim.lsp.config.ts_ls = {

@@ -22,3 +22,5 @@ opt.tabstop = 4
 opt.softtabstop = 4
 opt.autoindent = true
 opt.listchars = "tab:▸  ,trail:·,space:·,nbsp:␣"
+
+
