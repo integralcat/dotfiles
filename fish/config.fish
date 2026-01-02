@@ -107,17 +107,6 @@ if type -q aria2c
     alias aresume="aria2c --input-file=$HOME/.aria2/aria2.session --save-session=$HOME/.aria2/aria2.session"
 end
 
-
-# file copy
-function copy
-    set count (count $argv | tr -d \n)
-    if test "$count" = 2; and test -d "$argv[1]"
-        command cp -r (string trim -r -c '/') $argv[1] $argv[2]
-    else
-        command cp $argv
-    end
-end
-
 # backup
 function backup --argument file
     if test -f $file
@@ -130,4 +119,77 @@ end
 # zoxide
 if type -q zoxide
     zoxide init fish | source
+end
+
+
+# Auto-start tmux
+# Auto-start tmux (only once per boot)
+if status is-interactive
+    and not set -q TMUX
+
+    set SESSION main
+    set LOCK /tmp/tmux-main.lock
+
+    # Only run tmux on first terminal
+    if not test -e $LOCK
+        touch $LOCK
+
+        tmux has-session -t $SESSION 2>/dev/null
+        if test $status -ne 0
+            tmux new-session -d -s $SESSION:1 -n fish
+            tmux new-window -t $SESSION:2 -n nvim "nvim"
+            tmux new-window -t $SESSION:3 -n misc
+        end
+
+        tmux attach -t $SESSION
+        exit
+    end
+end
+
+
+# file copy
+function copy
+    set count (count $argv | tr -d \n)
+    if test "$count" = 2; and test -d "$argv[1]"
+        command cp -r (string trim -r -c '/') $argv[1] $argv[2]
+    else
+        command cp $argv
+    end
+end
+
+function develop --description "Init nix flake + direnv"
+    set template devshell
+    set dir .
+
+    switch (count $argv)
+        case 1
+            set template $argv[1]
+        case 2
+            set dir $argv[1]
+            set template $argv[2]
+    end
+
+    if not test -d $dir
+        echo "Directory '$dir' does not exist"
+        return 1
+    end
+
+    pushd $dir >/dev/null
+
+    if test -e flake.nix
+        echo "flake.nix already exists — aborting"
+        popd >/dev/null
+        return 1
+    end
+
+    nix flake init -t github:integralcat/nix-templates'#'$template
+
+    if not test -e .envrc
+        echo "use flake" > .envrc
+        direnv allow
+    else
+        echo ".envrc already exists — not touching it"
+    end
+
+    popd >/dev/null
 end

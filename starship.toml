@@ -2,8 +2,10 @@
 
 add_newline = true
 
-format = """$jobs$character"""
-right_format = """$directory$git_branch$git_status"""
+format = """$directory
+$hostname$character"""
+
+right_format = """$nix_shell$rust$golang$nodejs$c$cpp$git_branch$git_status"""
 
 [character]
 success_symbol = "[➜](bold green)"
@@ -11,16 +13,18 @@ error_symbol = "[➜](bold red)"
 vimcmd_symbol = "[❮](bold blue)"
 
 [directory]
-style = "bold cyan"
+style = "bold cyan dimmed"
 format = "[$path]($style) "
-truncation_length = 2
+truncation_length = 3
+truncation_symbol = "../"
+read_only = " "
 
 # --- Git Branch ---
 [git_branch]
-symbol = ""
+symbol = "" # " "
 only_attached = true
-format = "[$branch]($style) "
-style = "bold grey"
+format = "[$symbol$branch]($style) "
+style = "bold purple dimmed"
 
 # --- Git Status (symbols, no emojis) ---
 [git_status]
@@ -41,17 +45,51 @@ stashed    = "[s${count}](white) "
 
 style = ""
 
+[nix_shell]
+symbol = "󱄅 "
+format = "[$symbol]($style) "
+style = "bold blue dimmed"
+
 [python]
 symbol = " "
 format = "[ $version]($style) "
-style = "yellow"
+style = "yellow dimmed"
+
+[rust]
+symbol = " "
+format = "[$symbol]($style) "
+style = "bold red"
+
+[golang]
+symbol = " "
+format = "[$symbol]($style) "
+style = "bold cyan"
+
+[nodejs]
+symbol = " "
+format = "[$symbol]($style) "
+style = "bold green"
+
+[c]
+symbol = " "
+format = "[$symbol]($style) "
+style = "bold blue"
+
+[cpp]
+symbol = "󰙲 "
+format = "[$symbol]($style) "
+style = "bold blue"
 
 [jobs]
 symbol = "✦"
 format = "[✦]($style) "
 style = "blue italic"
 
+[hostname]
+ssh_only = true
+format = "[@$hostname]($style) "
+style = "bold blue"
+
 [time]
 disabled = true
-
 

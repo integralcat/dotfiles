@@ -1,45 +1,60 @@
 return {
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-    },
-    config = function()
-      require("mason").setup()
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+		},
+		config = function()
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "ts_ls",
-          "eslint",
-          "lua_ls",
-        },
-      })
+			local on_attach = function(client)
+				-- Let Prettier / formatters handle formatting
+				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
+			end
 
-      -- NEW Neovim 0.11 API
-      vim.lsp.config.ts_ls = {
-        on_attach = function(client)
-          -- disable formatting (Prettier handles it)
-          client.server_capabilities.documentFormattingProvider = false
-        end,
-      }
+			require("mason").setup()
 
-      vim.lsp.config.eslint = {}
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"ts_ls",
+					"eslint",
+					"lua_ls",
+					"clangd",
+				},
+			})
 
-      vim.lsp.config.lua_ls = {
-        settings = {
-          Lua = {
-            diagnostics = { globals = { "vim" } },
-          },
-        },
-      }
+			-- TypeScript
+			vim.lsp.config.ts_ls = {
+				on_attach = on_attach,
+				capabilities = capabilities,
+			}
 
-      -- enable servers
-      vim.lsp.enable({
-        "ts_ls",
-        "eslint",
-        "lua_ls",
-      })
-    end,
-  },
+			-- ESLint (diagnostics + fixes only)
+			vim.lsp.config.eslint = {
+				on_attach = on_attach,
+				capabilities = capabilities,
+			}
+
+			-- Lua
+			vim.lsp.config.lua_ls = {
+				on_attach = on_attach,
+				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+					},
+				},
+			}
+
+			vim.lsp.enable({
+				"ts_ls",
+				"eslint",
+				"lua_ls",
+			})
+		end,
+	},
 }

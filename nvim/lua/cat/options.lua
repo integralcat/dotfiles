@@ -12,9 +12,9 @@ opt.linebreak = true -- Wrap lines at convenient points
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 
 opt.loader.enable()
-opt.opt.expandtab = true
-opt.opt.shiftwidth = 4
-opt.opt.tabstop = 4
-opt.opt.softtabstop = 4
-opt.opt.autoindent = true
-opt.opt.listchars = 'tab:▸  ,trail:·,space:·,nbsp:␣'
+opt.expandtab = true
+opt.shiftwidth = 4
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.autoindent = true
+opt.listchars = "tab:▸  ,trail:·,space:·,nbsp:␣"
