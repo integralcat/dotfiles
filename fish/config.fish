@@ -10,7 +10,9 @@ set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
 set -gx CARGO_TARGET_DIR "$HOME/.cargo-target"
 set -gx EDITOR nvim
 # /usr/share/man's Manpages
-set -gx MANPATH $MANPATH (xcrun --show-sdk-path)/usr/share/man
+if type -q xcrun
+    set -gx MANPATH $MANPATH (xcrun --show-sdk-path)/usr/share/man
+end
 
 # safe PATH adding
 function __safe_add_path
@@ -122,27 +124,28 @@ if type -q zoxide
 end
 
 
-# Auto-start tmux
-# Auto-start tmux (only once per boot)
+# Auto-start tmux (only if available)
 if status is-interactive
-    and not set -q TMUX
+    if not set -q TMUX
+        if command -q tmux
 
-    set SESSION main
-    set LOCK /tmp/tmux-main.lock
+            set SESSION main
+            set LOCK /tmp/tmux-main.lock
 
-    # Only run tmux on first terminal
-    if not test -e $LOCK
-        touch $LOCK
+            if not test -e $LOCK
+                touch $LOCK
 
-        tmux has-session -t $SESSION 2>/dev/null
-        if test $status -ne 0
-            tmux new-session -d -s $SESSION:1 -n fish
-            tmux new-window -t $SESSION:2 -n nvim "nvim"
-            tmux new-window -t $SESSION:3 -n misc
+                tmux has-session -t $SESSION 2>/dev/null
+                if test $status -ne 0
+                    tmux new-session -d -s $SESSION -n fish
+                    tmux new-window -t $SESSION -n nvim "nvim"
+                    tmux new-window -t $SESSION -n misc
+                end
+
+                tmux attach -t $SESSION
+                exit
+            end
         end
-
-        tmux attach -t $SESSION
-        exit
     end
 end
 
@@ -157,39 +160,42 @@ function copy
     end
 end
 
-function develop --description "Init nix flake + direnv"
-    set template devshell
-    set dir .
+if test (uname) = Darwin
+    function develop --description "Init nix flake + direnv"
+        set template devshell
+        set dir .
 
-    switch (count $argv)
-        case 1
-            set template $argv[1]
-        case 2
-            set dir $argv[1]
-            set template $argv[2]
-    end
+        switch (count $argv)
+            case 1
+                set template $argv[1]
+            case 2
+                set dir $argv[1]
+                set template $argv[2]
+        end
 
-    if not test -d $dir
-        echo "Directory '$dir' does not exist"
-        return 1
-    end
+        if not test -d $dir
+            echo "Directory '$dir' does not exist"
+            return 1
+        end
 
-    pushd $dir >/dev/null
+        pushd $dir >/dev/null
 
-    if test -e flake.nix
-        echo "flake.nix already exists — aborting"
+        if test -e flake.nix
+            echo "flake.nix already exists — aborting"
+            popd >/dev/null
+            return 1
+        end
+
+        nix flake init -t github:integralcat/nix-templates#$template
+
+        if not test -e .envrc
+            echo "use flake" > .envrc
+            direnv allow
+        else
+            echo ".envrc already exists — not touching it"
+        end
+
         popd >/dev/null
-        return 1
     end
-
-    nix flake init -t github:integralcat/nix-templates'#'$template
-
-    if not test -e .envrc
-        echo "use flake" > .envrc
-        direnv allow
-    else
-        echo ".envrc already exists — not touching it"
-    end
-
-    popd >/dev/null
 end
+

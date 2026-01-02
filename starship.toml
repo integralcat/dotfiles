@@ -21,6 +21,7 @@ read_only = " "
 
 # --- Git Branch ---
 [git_branch]
+disabled = true
 symbol = "" # " "
 only_attached = true
 format = "[$symbol$branch]($style) "
@@ -28,7 +29,7 @@ style = "bold purple dimmed"
 
 # --- Git Status (symbols, no emojis) ---
 [git_status]
-disabled = false
+disabled = true
 format = "$conflicted$staged$modified$renamed$deleted$untracked$ahead_behind"
 
 conflicted = "[!!${count}](bold red) "
@@ -45,49 +46,9 @@ stashed    = "[s${count}](white) "
 
 style = ""
 
-[nix_shell]
-symbol = "󱄅 "
-format = "[$symbol]($style) "
-style = "bold blue dimmed"
-
-[python]
-symbol = " "
-format = "[ $version]($style) "
-style = "yellow dimmed"
-
-[rust]
-symbol = " "
-format = "[$symbol]($style) "
-style = "bold red"
-
-[golang]
-symbol = " "
-format = "[$symbol]($style) "
-style = "bold cyan"
-
-[nodejs]
-symbol = " "
-format = "[$symbol]($style) "
-style = "bold green"
-
-[c]
-symbol = " "
-format = "[$symbol]($style) "
-style = "bold blue"
-
-[cpp]
-symbol = "󰙲 "
-format = "[$symbol]($style) "
-style = "bold blue"
-
-[jobs]
-symbol = "✦"
-format = "[✦]($style) "
-style = "blue italic"
-
 [hostname]
 ssh_only = true
-format = "[@$hostname]($style) "
+format = "[@GouravPhone]($style) "
 style = "bold blue"
 
 [time]
