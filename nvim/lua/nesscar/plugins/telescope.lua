@@ -13,10 +13,15 @@ return {
 
 		-- Files
 		vim.keymap.set("n", "<leader>ff", builtin.find_files)
-		vim.keymap.set("n", "<leader>fg", builtin.live_grep)
 		vim.keymap.set("n", "<leader>fr", builtin.oldfiles)
 
-		-- LSP
+		-- Ripgrep
+		vim.keymap.set("n", "<leader>fg", builtin.live_grep)
+		vim.keymap.set("n", "<leader>/", function()
+			builtin.live_grep({ grep_open_files = true })
+		end)
+
+		-- LSP (keep native jumps fast)
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 		vim.keymap.set("n", "gr", vim.lsp.buf.references)
 		vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
@@ -29,13 +34,15 @@ return {
 
 		-- Utils
 		vim.keymap.set("n", "<leader>km", builtin.keymaps)
-		vim.keymap.set("n", "<leader>/", function()
-			builtin.live_grep({ grep_open_files = true })
-		end)
 		vim.keymap.set("n", "<leader>;", builtin.resume)
+
+		--------------------------------------------------
+		-- Telescope Setup
+		--------------------------------------------------
 
 		telescope.setup({
 			defaults = {
+				-- UI
 				prompt_prefix = "   ",
 				selection_caret = "❯ ",
 				entry_prefix = "  ",
@@ -43,12 +50,13 @@ return {
 
 				sorting_strategy = "ascending",
 				layout_strategy = "horizontal",
+				winblend = 10,
 
 				layout_config = {
 					prompt_position = "top",
-					preview_width = 0.5,
-					width = 0.75,
-					height = 0.65,
+					preview_width = 0.55,
+					width = 0.85,
+					height = 0.75,
 				},
 
 				border = true,
@@ -58,9 +66,21 @@ return {
 					preview = { "─", "│", "─", "│", "┐", "┐", "┘", "└" },
 				},
 
-				winblend = 10,
-
 				path_display = { "truncate" },
+
+				-- rg
+				vimgrep_arguments = {
+					"rg",
+					"--color=never",
+					"--no-heading",
+					"--with-filename",
+					"--line-number",
+					"--column",
+					"--smart-case",
+					"--hidden",
+					"--glob",
+					"!.git/*",
+				},
 
 				file_ignore_patterns = {
 					"node_modules",
@@ -69,12 +89,7 @@ return {
 					"build",
 				},
 
-				preview = {
-					filesize_limit = 0.3, -- MB
-					timeout = 200,
-					treesitter = true,
-				},
-
+				-- Keymaps
 				mappings = {
 					i = {
 						["<C-j>"] = actions.move_selection_next,
@@ -88,28 +103,43 @@ return {
 			},
 
 			pickers = {
+				-- fd
+				find_files = {
+					find_command = {
+						"fd",
+						"--type",
+						"f",
+						"--hidden",
+						"--follow",
+						"--exclude",
+						".git",
+					},
+					previewer = false,
+					layout_config = { width = 0.6 },
+				},
+
 				buffers = {
 					previewer = false,
 					layout_config = { width = 0.6 },
 				},
+
 				oldfiles = {
-					previewer = false,
-					layout_config = { width = 0.6 },
-				},
-				find_files = {
 					previewer = false,
 					layout_config = { width = 0.6 },
 				},
 
 				-- Code-aware pickers (preview ON)
-				live_grep = {
-					previewer = true,
-				},
-				lsp_definitions = {
-					previewer = true,
-				},
-				lsp_references = {
-					previewer = true,
+				live_grep = { previewer = true },
+				lsp_definitions = { previewer = true },
+				lsp_references = { previewer = true },
+			},
+
+			extensions = {
+				fzf = {
+					fuzzy = true,
+					override_generic_sorter = true,
+					override_file_sorter = true,
+					case_mode = "smart_case",
 				},
 			},
 		})
