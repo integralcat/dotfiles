@@ -6,8 +6,8 @@
 opacity = 0.8
 blur = true
 decorations = "Buttonless"
-startup_mode = "Windowed"
-dimensions = { columns = 120, lines = 30 }
+startup_mode = "Maximized"
+dimensions = { columns = 150, lines = 50 }
 
 [window.padding]
 x = 8
