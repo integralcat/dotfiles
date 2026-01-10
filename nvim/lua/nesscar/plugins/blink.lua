@@ -2,15 +2,19 @@ return {
 	"saghen/blink.cmp",
 	version = "1.*",
 
-	---@module 'blink.cmp'
-	---@type blink.cmp.Config
 	opts = {
-		cmdline = {
-			enabled = true,
-		},
-		keymap = { preset = "enter" },
+		cmdline = { enabled = true },
+
+		keymap = { preset = "enter" }, -- <Enter> confirms
+
 		appearance = {
 			nerd_font_variant = "mono",
+		},
+
+		snippets = {
+			expand = function(snippet)
+				vim.snippet.expand(snippet)
+			end,
 		},
 
 		completion = {
@@ -31,11 +35,12 @@ return {
 				auto_show = false,
 			},
 		},
+
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
 		},
 
-		fuzzy = { implementation = "prefer_rust_with_warning" },
+		fuzzy = { implementation = "prefer_rust" },
 	},
 	opts_extend = { "sources.default" },
 }

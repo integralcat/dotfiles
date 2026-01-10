@@ -3,6 +3,7 @@ vim.g.maplocalleader = "\\"
 
 local opt = vim.opt
 
+opt.title = true
 opt.autoread = true
 opt.swapfile = false
 opt.autowrite = true
@@ -25,6 +26,8 @@ opt.listchars = "tab:▸  ,trail:·,space:·,nbsp:␣"
 opt.foldlevel = 99
 opt.foldmethod = "indent"
 opt.foldtext = ""
+opt.backspace = { "start", "eol", "indent" }
+opt.path:append({ "**" })
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true -- Ignore case
@@ -39,15 +42,16 @@ opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = true -- Relative line numbers
 opt.ruler = false -- Disable the default ruler
-opt.scrolloff = 4 -- Lines of context
+opt.scrolloff = 8 -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.showmode = false -- Dont show mode since we have a statusline
-opt.sidescrolloff = 8 -- Columns of context
+opt.sidescrolloff = 10 -- Columns of context
 opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartcase = true -- Don't ignore case with capitals
+opt.smarttab = true
 opt.smartindent = true -- Insert indents automatically
 opt.smoothscroll = true
 opt.spelllang = { "en" }
