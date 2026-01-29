@@ -10,7 +10,7 @@ return {
 				height = math.floor(vim.o.lines * 0.7),
 			},
 		})
-		vim.keymap.set({ "n", "i", "t" }, "<C-_>", function()
+		vim.keymap.set({ "n", "t" }, "<leader>tt", function()
 			require("toggleterm").toggle()
 		end, { desc = "Toggle Terminal" })
 	end,

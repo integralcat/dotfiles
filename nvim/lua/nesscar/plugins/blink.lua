@@ -5,16 +5,11 @@ return {
 	opts = {
 		cmdline = { enabled = true },
 
-		keymap = { preset = "enter" }, -- <Enter> confirms
-
-		appearance = {
-			nerd_font_variant = "mono",
-		},
-
-		snippets = {
-			expand = function(snippet)
-				vim.snippet.expand(snippet)
-			end,
+		keymap = {
+			preset = "enter",
+			-- next / previous item
+			["<C-n>"] = { "select_next", "fallback" },
+			["<C-p>"] = { "select_prev", "fallback" },
 		},
 
 		completion = {
@@ -32,7 +27,7 @@ return {
 				show_with_menu = true,
 			},
 			menu = {
-				auto_show = false,
+				auto_show = true,
 			},
 		},
 

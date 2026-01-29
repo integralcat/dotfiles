@@ -13,6 +13,7 @@ return {
 
 		-- Files
 		vim.keymap.set("n", "<leader>ff", builtin.find_files)
+		vim.keymap.set("n", "<leader><leader>", builtin.find_files)
 		vim.keymap.set("n", "<leader>fr", builtin.oldfiles)
 		vim.keymap.set("n", "<leader>fb", builtin.buffers)
 
@@ -27,6 +28,12 @@ return {
 		vim.keymap.set("n", "gr", vim.lsp.buf.references)
 		vim.keymap.set("n", "gi", vim.lsp.buf.implementation)
 		vim.keymap.set("n", "gt", vim.lsp.buf.type_definition)
+
+		-- Diagnostics
+		vim.keymap.set("n", "<leader>dd", builtin.diagnostics) -- all diagnostics
+		vim.keymap.set("n", "<leader>dw", function()
+			builtin.diagnostics({ bufnr = 0 }) -- current buffer only
+		end)
 
 		-- Git
 		vim.keymap.set("n", "<leader>gs", builtin.git_status)
@@ -88,6 +95,7 @@ return {
 					".git/",
 					"dist",
 					"build",
+					".direnv",
 				},
 
 				-- Keymaps

@@ -28,6 +28,28 @@ return {
 			bold = true,
 		})
 
+		local link = vim.api.nvim_set_hl
+
+		link(0, "BlinkCmpItemAbbrMatch", { link = "Identifier" })
+		link(0, "BlinkCmpGhostText", { fg = "#928374", italic = true }) -- gruvbox gray
+
+		-- Menu
+		link(0, "BlinkCmpMenu", { link = "Pmenu" })
+		link(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })
+
+		-- Items
+		link(0, "BlinkCmpItem", { link = "Pmenu" })
+		link(0, "BlinkCmpItemAbbr", { link = "Pmenu" })
+		link(0, "BlinkCmpItemKind", { link = "Special" })
+		link(0, "BlinkCmpItemAbbrMatch", { link = "Search" })
+
+		-- Docs
+		link(0, "BlinkCmpDoc", { link = "NormalFloat" })
+		link(0, "BlinkCmpDocBorder", { link = "FloatBorder" })
+
+		-- Ghost text
+		link(0, "BlinkCmpGhostText", { link = "Comment" })
+
 		-- transparency tweaks for telescope
 		vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { link = "Normal" })
 		vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { link = "FloatBorder" })
